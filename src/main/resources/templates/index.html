@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="header">
+    <h1 class="mainText">URL <span class="short"><span class="slash">/</span>SHORT</span><br>
+        <span class="cutter"> CUTTER</span></h1>
+</div>
+<div class="main">
+    <div class="mainDiv">
+        <form th:method="POST" th:action="@{/}" th:object="${url}">
+            <div class="mainDiv">
+                <input type="text" placeholder="Paste long URL here" name="sourceUrl" id="sourceUrl"
+                       th:field="*{srcUrl}">
+                &nbsp;
+                <input type="submit" value="Cut">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
