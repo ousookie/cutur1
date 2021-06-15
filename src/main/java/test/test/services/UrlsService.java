@@ -58,7 +58,7 @@ public class UrlsService {
         }
     }
 
-    public String redirect(String cutUrl) {
+    public String redirect(String cutUrl) throws UrlIsNotValid {
         if (isTimeStampValid(urlsRepo.getUrlByCutUrl(cutUrl))) {
             return urlsRepo.getUrlByCutUrl(cutUrl).getSrcUrl();
         } else {
