@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import test.test.entities.Url;
-import test.test.repos.UrlsRepo;
+import test.test.services.UrlsRestService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class RestControllerClass {
-    private final UrlsRepo urlsRepo;
+    private final UrlsRestService urlsRestService;
 
     @Autowired
-    public RestControllerClass(UrlsRepo urlsRepo) {
-        this.urlsRepo = urlsRepo;
+    public RestControllerClass(UrlsRestService urlsRestService) {
+        this.urlsRestService = urlsRestService;
     }
 
     @GetMapping(value = {"", "/"})
     public List<Url> findAll() {
-        return urlsRepo.findAll();
+        return urlsRestService.findAll();
     }
 }

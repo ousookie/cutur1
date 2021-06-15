@@ -12,11 +12,11 @@ public interface UrlsRepo extends JpaRepository<Url, Integer> {
     @Query(value = "SELECT u from Url u WHERE u.srcUrl=:src")
     Url getUrlBySrcUrl(@Param(value = "src") String src);
 
+    @Query(value = "SELECT u from Url u WHERE u.cutUrl=:cut")
+    Url getUrlByCutUrl(@Param(value = "cut") String src);
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE Url SET cutUrl=:id WHERE id=:urlId")
     void setCutUrl(@Param(value = "id") String id, @Param(value = "urlId") Integer urlId);
-
-    @Query(value = "SELECT u from Url u WHERE u.cutUrl=:cut")
-    Url getUrlByCutUrl(@Param(value = "cut") String src);
 }
