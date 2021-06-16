@@ -1,13 +1,14 @@
 {
   "properties": [
     {
-      "name": "application.host",
-      "type": "java.lang.String",
-      "description": "Description for application.host."
-    },
-    {
       "name": "application.TIMESTAMP_LIMIT",
       "type": "java.lang.Long",
       "description": "Description for application.TIMESTAMP_LIMIT."
+    },
+    {
+      "name": "application.HOST",
+      "type": "java.lang.String",
+      "description": "Description for application.HOST."
     }
-  ] }
+  ]
+}

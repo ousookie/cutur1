@@ -1,10 +1,10 @@
-package test.test.core;
+package com.url.cutter.core;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class UrlCutter {
+public final class UrlShortCutter {
     private static final String ALLOWED_BASE6_2ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final char[] ALLOWED_BASE62_ALPHABET_CHARS = ALLOWED_BASE6_2ALPHABET.toCharArray();
     private static final int BASE = ALLOWED_BASE62_ALPHABET_CHARS.length;
@@ -25,8 +25,8 @@ public final class UrlCutter {
         int number = sourceValue;
         List<Integer> alphabet62Indexes = new ArrayList<>();
         while (number != 0) {
-            int remainder = number % UrlCutter.getBase();
-            number = number / UrlCutter.getBase();
+            int remainder = number % UrlShortCutter.getBase();
+            number = number / UrlShortCutter.getBase();
             alphabet62Indexes.add(remainder);
         }
         alphabet62Indexes.sort(Comparator.reverseOrder());

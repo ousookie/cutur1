@@ -1,26 +1,26 @@
-package test.test.controllers;
+package com.url.cutter.controllers;
 
+import com.url.cutter.entities.ShortUrl;
+import com.url.cutter.services.UrlApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import test.test.entities.Url;
-import test.test.services.UrlsRestService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
-public class RestControllerClass {
-    private final UrlsRestService urlsRestService;
+@RequestMapping("/api/v1")
+public class ApiController {
+    private final UrlApiService urlsRestService;
 
     @Autowired
-    public RestControllerClass(UrlsRestService urlsRestService) {
+    public ApiController(UrlApiService urlsRestService) {
         this.urlsRestService = urlsRestService;
     }
 
     @GetMapping(value = {"", "/"})
-    public List<Url> findAll() {
+    public List<ShortUrl> findAll() {
         return urlsRestService.findAll();
     }
 }

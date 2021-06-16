@@ -1,4 +1,4 @@
-package test.test.exceptions;
+package com.url.cutter.exceptions;
 
 import org.springframework.http.HttpStatus;
 

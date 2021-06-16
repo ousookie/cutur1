@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Saved</title>
+    <title>Shortened</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
 </head>
@@ -17,7 +17,7 @@
     </div>
     <div>
         <p>
-            <span th:text="*{host}"></span><span th:text="*{savedUrl.getCutUrl()}"></span>
+            <span th:text="${HOST}"></span><span th:text="${shortenedUrl.getCutUrl()}"></span>
         </p>
     </div>
     <div>

@@ -1,10 +1,10 @@
-package test.test.entities;
+package com.url.cutter.entities;
 
 import javax.persistence.*;
 
-@Entity(name = "Url")
+@Entity(name = "ShortUrl")
 @Table(name = "url")
-public class Url {
+public class ShortUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "bigint")
@@ -13,17 +13,17 @@ public class Url {
     private String srcUrl;
     @Column(name = "cut_url", columnDefinition = "varchar")
     private String cutUrl;
-    @Column(name = "saved_on", columnDefinition = "varchar")
-    private Long savedTime;
+    @Column(name = "time_stamp", columnDefinition = "varchar")
+    private Long timeStamp;
 
-    public Url() {
+    public ShortUrl() {
     }
 
-    public Url(Integer id, String srcUrl, String cutUrl, Long savedTime) {
+    public ShortUrl(Integer id, String srcUrl, String cutUrl, Long savedTime) {
         this.id = id;
         this.srcUrl = srcUrl;
         this.cutUrl = cutUrl;
-        this.savedTime = savedTime;
+        this.timeStamp = savedTime;
     }
 
     public Integer getId() {
@@ -50,11 +50,11 @@ public class Url {
         this.cutUrl = cutUrl;
     }
 
-    public Long getSavedTime() {
-        return savedTime;
+    public Long getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setSavedTime(Long savedTime) {
-        this.savedTime = savedTime;
+    public void setTimeStamp(Long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
