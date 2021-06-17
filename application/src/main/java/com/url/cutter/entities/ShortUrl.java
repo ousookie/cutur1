@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity(name = "ShortUrl")
 @Table(name = "url")
 public class ShortUrl {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "bigint")
@@ -57,4 +58,5 @@ public class ShortUrl {
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
+
 }

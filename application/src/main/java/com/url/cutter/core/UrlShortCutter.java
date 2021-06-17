@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class UrlShortCutter {
+
     private static final String ALLOWED_BASE6_2ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final char[] ALLOWED_BASE62_ALPHABET_CHARS = ALLOWED_BASE6_2ALPHABET.toCharArray();
     private static final int BASE = ALLOWED_BASE62_ALPHABET_CHARS.length;
@@ -41,6 +42,7 @@ public final class UrlShortCutter {
         }
         return new String(buffer);
     }
+
 }
 
 

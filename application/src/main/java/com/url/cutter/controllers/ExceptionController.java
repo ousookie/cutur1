@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ExceptionController implements ErrorController {
+
     @RequestMapping(value = "/error")
     public String handleError(HttpServletRequest httpServletRequest, Model model) {
         Integer statusCode = (Integer) httpServletRequest.getAttribute("javax.servlet.error.status_code");
         model.addAttribute("statusCode", statusCode);
-        return "error";
+        return "exception";
     }
+
 }

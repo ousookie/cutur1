@@ -1,5 +1,6 @@
-package com.url.cutter.services;
+package com.url.cutter.services.classes;
 
+import com.url.cutter.services.interfaces.IUrlService;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,14 +8,14 @@ import org.springframework.stereotype.Service;
 import com.url.cutter.core.UrlShortCutter;
 import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsNotValid;
-import com.url.cutter.repositories.IUrlRepository;
+import com.url.cutter.repositories.interfaces.IUrlRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
 @Service
-public class UrlService {
+public class UrlService implements IUrlService {
 
     private final IUrlRepository urlsRepo;
 

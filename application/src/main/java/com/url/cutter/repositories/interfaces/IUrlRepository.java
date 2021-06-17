@@ -1,4 +1,4 @@
-package com.url.cutter.repositories;
+package com.url.cutter.repositories.interfaces;
 
 import com.url.cutter.entities.ShortUrl;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +15,5 @@ public interface IUrlRepository extends JpaRepository<ShortUrl, Integer> {
     @Modifying
     @Query(value = "UPDATE ShortUrl SET cutUrl=:idValue WHERE id=:urlId")
     void setCutUrl(@Param(value = "idValue") String id, @Param(value = "urlId") Integer urlId);
+
 }

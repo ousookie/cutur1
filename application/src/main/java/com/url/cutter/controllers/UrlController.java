@@ -1,6 +1,5 @@
 package com.url.cutter.controllers;
 
-import com.url.cutter.core.UrlShortCutter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsNotValid;
-import com.url.cutter.services.UrlService;
+import com.url.cutter.services.classes.UrlService;
 
 @Controller
 @RequestMapping(value = {"/index", ""})
@@ -45,8 +44,9 @@ public class UrlController {
             return "redirect:" + srcUrl;
         } catch (UrlIsNotValid urlIsNotValid) {
             model.addAttribute("statusCode", urlIsNotValid.getCodeStatus());
-            return "error";
+            return "exception";
         }
     }
+
 }
 
