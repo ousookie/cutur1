@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.url.cutter.core.UrlShortCutter;
 import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsNotValid;
-import com.url.cutter.repos.UrlRepository;
+import com.url.cutter.repositories.IUrlRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +16,13 @@ import java.time.Instant;
 @Service
 public class UrlService {
 
-    private final UrlRepository urlsRepo;
+    private final IUrlRepository urlsRepo;
 
     @Value("${application.TIME_STAMP_LIMIT}")
     private Long TIME_STAMP_LIMIT;
 
     @Autowired
-    public UrlService(UrlRepository urlsRepo) {
+    public UrlService(IUrlRepository urlsRepo) {
         this.urlsRepo = urlsRepo;
     }
 
@@ -36,7 +36,7 @@ public class UrlService {
         return (timeStampSeconds - url.getTimeStamp()) < TIME_STAMP_LIMIT;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ShortUrl getShortUrl(ShortUrl url) {
         return urlsRepo.getShortUrlBySrcUrl(url.getSrcUrl().trim());
     }

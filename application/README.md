@@ -1,2 +1,2 @@
-# `Url-short-cutter v1.7`
+# `Url-short-cutter v1.8`
 > 

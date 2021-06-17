@@ -1,4 +1,4 @@
-package com.url.cutter.repos;
+package com.url.cutter.repositories;
 
 import com.url.cutter.entities.ShortUrl;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface UrlRepository extends JpaRepository<ShortUrl, Integer> {
+public interface IUrlRepository extends JpaRepository<ShortUrl, Integer> {
 
     ShortUrl getShortUrlByCutUrl(@Param(value = "cut") String cut);
 
