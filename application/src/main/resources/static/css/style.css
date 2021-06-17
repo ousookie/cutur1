@@ -33,10 +33,6 @@ body {
     opacity: 50%;
 }
 
-.cutter {
-    opacity: 25%;
-}
-
 .main {
     font-size: 20px;
     font-style: normal;
@@ -64,7 +60,7 @@ input[type="text"] {
     background-color: white;
     font-size: 20px;
     padding-left: 20px;
-    transition: box-shadow 0.5s ease-out;
+    transition: box-shadow 0.3s ease-out;
 }
 
 input[type="text"]:focus {
@@ -89,14 +85,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: rgba(0, 133, 255, 0.85);
     cursor: pointer;
-}
-
-.resultUrls {
-    margin-top: 5%;
-}
-
-.arrow {
-    font-weight: bold;
 }
 
 .footer {
