@@ -1,2 +1,2 @@
-# `Url-short-cutter v2.0`
+# `CUTUR1 v2.0`
 > 
