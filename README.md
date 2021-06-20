@@ -1,1 +1,1 @@
-> https://cutur1.herokuapp.com/
+> https://cutur1.herokuapp.com
