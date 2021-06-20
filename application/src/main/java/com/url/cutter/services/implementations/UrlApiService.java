@@ -1,4 +1,4 @@
-package com.url.cutter.services.classes;
+package com.url.cutter.services.implementations;
 
 import com.url.cutter.services.interfaces.IUrlApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +11,15 @@ import java.util.List;
 @Service
 public class UrlApiService implements IUrlApiService {
 
-    private final IUrlRepository urlsRepo;
+    private final IUrlRepository urlRepository;
 
     @Autowired
     public UrlApiService(IUrlRepository urlsRepo) {
-        this.urlsRepo = urlsRepo;
+        this.urlRepository = urlsRepo;
     }
 
     public List<ShortUrl> findAll() {
-        return urlsRepo.findAll();
+        return urlRepository.findAll();
     }
 
 }
