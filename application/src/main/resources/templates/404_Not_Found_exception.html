@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cutur1 | Free Url Shortener</title>
+    <title>404 Not Found - cutur1.herokuapp.com</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
 </head>
@@ -12,22 +12,13 @@
         <span class="slash">/</span>CUT<span class="short">UR1</span>
     </h1>
 </div>
-<div class="mainDiv">
-    <div>
-        <h2> Your url: </h2>
-    </div>
-    <div>
-        <p>
-            <span th:text="${HOST}"></span><span th:text="${shortenedUrl.getCutUrl()}"></span>
-        </p>
-    </div>
-    <div>
-        <a th:href="@{/}">Home</a>
-    </div>
+<div>
+    <h1 class="exceptionDiv">
+        <p th:text="${statusCode}"></p>
+        <p th:text="${codeMessage}"></p>
+    </h1>
 </div>
 <div class="footer">
 </div>
 </body>
-
-
-
+</html>

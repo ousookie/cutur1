@@ -1,6 +1,7 @@
 package com.url.cutter.controllers;
 
-import com.url.cutter.exceptions.UrlTimeStampIsNotValid;
+import com.url.cutter.exceptions.UrlIsNotValid;
+import com.url.cutter.exceptions.UrlSourceValueIsNotValid;
 import com.url.cutter.services.interfaces.IUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,21 +32,25 @@ public class UrlController {
 
     @PostMapping()
     public String save(ShortUrl url, Model model) {
-        urlService.saveUrl(url);
-        model.addAttribute("HOST", HOST);
-        model.addAttribute("shortenedUrl", urlService.getShortUrl(url));
-        return "shortened";
+        try {
+            ShortUrl shortUrl = urlService.saveUrl(url);
+            model.addAttribute("HOST", HOST);
+            model.addAttribute("shortenedUrl", shortUrl);
+            return "shortened";
+        } catch (UrlSourceValueIsNotValid urlSourceValueIsNotValid) {
+            return "url_source_value_is_not_valid";
+        }
     }
 
     @GetMapping("/{url}")
-    public String redirect(@PathVariable(value = "url") String url,
-                           Model model) throws UrlTimeStampIsNotValid {
+    public String redirect(@PathVariable(value = "url") String url, Model model) {
         try {
             String srcUrl = urlService.redirect(url);
             return "redirect:" + srcUrl;
-        } catch (UrlTimeStampIsNotValid urlIsNotValid) {
-            model.addAttribute("statusCode", UrlTimeStampIsNotValid.getCodeStatus());
-            return "exception";
+        } catch (UrlIsNotValid urlIsNotValid) {
+            model.addAttribute("statusCode", UrlIsNotValid.getCodeStatus());
+            model.addAttribute("codeMessage", UrlIsNotValid.getCodeMessage());
+            return "404_Not_Found_exception";
         }
     }
 

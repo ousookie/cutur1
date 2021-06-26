@@ -10,6 +10,10 @@ public final class UrlShortCutter {
     private static final char[] ALLOWED_BASE62_ALPHABET_CHARS = ALLOWED_BASE6_2ALPHABET.toCharArray();
     private static final int BASE = ALLOWED_BASE62_ALPHABET_CHARS.length;
 
+    private UrlShortCutter() {
+
+    }
+
     public static int getBase() {
         return BASE;
     }

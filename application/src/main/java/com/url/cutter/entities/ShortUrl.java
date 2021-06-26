@@ -1,5 +1,6 @@
 package com.url.cutter.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity(name = "ShortUrl")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ShortUrl {
 
     @Id
@@ -36,12 +38,5 @@ public class ShortUrl {
             name = "time_stamp",
             columnDefinition = "varchar")
     private long timeStamp;
-
-    public ShortUrl(int id, String srcUrl, String cutUrl, long timeStamp) {
-        this.id = id;
-        this.srcUrl = srcUrl;
-        this.cutUrl = cutUrl;
-        this.timeStamp = timeStamp;
-    }
 
 }

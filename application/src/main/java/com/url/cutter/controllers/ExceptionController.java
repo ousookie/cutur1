@@ -1,5 +1,6 @@
 package com.url.cutter.controllers;
 
+import com.url.cutter.exceptions.UrlIsNotValid;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,10 @@ public class ExceptionController implements ErrorController {
 
     @RequestMapping(value = "/error")
     public String handleError(HttpServletRequest httpServletRequest, Model model) {
-        Integer statusCode = (Integer) httpServletRequest.getAttribute("javax.servlet.error.status_code");
+        int statusCode = (int) httpServletRequest.getAttribute("javax.servlet.error.status_code");
         model.addAttribute("statusCode", statusCode);
-        return "exception";
+        model.addAttribute("codeMessage", UrlIsNotValid.getCodeMessage());
+        return "404_Not_Found_exception";
     }
 
 }

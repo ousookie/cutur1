@@ -1,5 +1,6 @@
 package com.url.cutter.services.implementations;
 
+import com.url.cutter.exceptions.UrlIsNotValid;
 import com.url.cutter.utilities.UrlShortCutter;
 import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsAlreadySaved;
@@ -18,17 +19,23 @@ import java.time.Instant;
 @Service
 public class UrlService implements IUrlService {
 
-    private final IUrlRepository urlRepository;
+    private IUrlRepository urlRepository;
 
     @Value(value = "${TIME_STAMP_LIMIT}")
-    private Long TIME_STAMP_LIMIT;
+    private long TIME_STAMP_LIMIT;
 
     @Autowired
-    public UrlService(IUrlRepository urlsRepo) {
-        this.urlRepository = urlsRepo;
+    public UrlService(IUrlRepository urlRepository) {
+        this.urlRepository = urlRepository;
     }
 
-    //TODO: check log4j
+    public UrlService() {
+
+    }
+
+    public void setUrlRepository(IUrlRepository urlRepository) {
+        this.urlRepository = urlRepository;
+    }
 
     public void checkUrlSourceValue(ShortUrl shortUrl) throws UrlSourceValueIsNotValid {
         if (!UrlValidator.getInstance().isValid(shortUrl.getSrcUrl().trim())) {
@@ -44,6 +51,7 @@ public class UrlService implements IUrlService {
         }
     }
 
+    @Transactional(readOnly = true)
     public void checkAlreadySavedUrl(ShortUrl shortUrl) throws UrlIsAlreadySaved {
         if (getShortUrl(shortUrl) != null) {
             throw new UrlIsAlreadySaved();
@@ -55,8 +63,13 @@ public class UrlService implements IUrlService {
         return urlRepository.getShortUrlBySrcUrl(url.getSrcUrl().trim());
     }
 
+    @Transactional(readOnly = true)
+    public int getLastInsertEntityId() {
+        return urlRepository.getLastInsertEntityId().intValue();
+    }
 
-    public void saveUrl(ShortUrl url) throws RuntimeException {
+    @Transactional
+    public void processingUrl(ShortUrl url) throws RuntimeException {
         Instant instant = Instant.now();
         long timeStampSeconds = instant.getEpochSecond();
         try {
@@ -64,29 +77,48 @@ public class UrlService implements IUrlService {
             checkAlreadySavedUrl(url);
             url.setSrcUrl(url.getSrcUrl().trim());
             url.setTimeStamp(timeStampSeconds);
-            url.setCutUrl(UrlShortCutter.getBase62String(urlRepository.getLastInsertEntityId().intValue()));
-            urlRepository.save(url);
+            url.setCutUrl(UrlShortCutter.getBase62String(getLastInsertEntityId()));
         } catch (UrlSourceValueIsNotValid ignored) {
-
+            throw new UrlSourceValueIsNotValid();
         } catch (UrlIsAlreadySaved urlIsAlreadySaved) {
             try {
                 ShortUrl alreadySavedUrl = getShortUrl(url);
                 checkUrlTimeStamp(alreadySavedUrl);
+                throw new UrlIsAlreadySaved();
             } catch (UrlTimeStampIsNotValid urlTimeStampIsNotValid) {
-                urlRepository.deleteById(getShortUrl(url).getId());
-                saveUrl(url);
+                deleteById(url);
+                processingUrl(url);
             }
         }
     }
 
-    public String redirect(String cutUrl) throws UrlTimeStampIsNotValid {
+    @Transactional
+    public ShortUrl saveUrl(ShortUrl shortUrl) {
         try {
+            processingUrl(shortUrl);
+            return urlRepository.save(shortUrl);
+        } catch (UrlIsAlreadySaved urlIsAlreadySaved) {
+            return getShortUrl(shortUrl);
+        }
+    }
+
+    @Transactional
+    public void deleteById(ShortUrl shortUrl) {
+        urlRepository.deleteById(getShortUrl(shortUrl).getId());
+    }
+
+    @Transactional(noRollbackFor = UrlIsNotValid.class)
+    public String redirect(String cutUrl) throws UrlIsNotValid {
+        try {
+            getShortUrl(urlRepository.getShortUrlByCutUrl(cutUrl));
             checkUrlTimeStamp(urlRepository.getShortUrlByCutUrl(cutUrl));
+            return urlRepository.getShortUrlByCutUrl(cutUrl).getSrcUrl();
+        } catch (NullPointerException nullPointerException) {
+            throw new UrlIsNotValid();
         } catch (UrlTimeStampIsNotValid urlTimeStampIsNotValid) {
             urlRepository.deleteById(urlRepository.getShortUrlByCutUrl(cutUrl).getId());
             throw new UrlTimeStampIsNotValid();
         }
-        return urlRepository.getShortUrlByCutUrl(cutUrl).getSrcUrl();
     }
 
 }

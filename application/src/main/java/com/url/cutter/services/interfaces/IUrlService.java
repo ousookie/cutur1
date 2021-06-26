@@ -4,7 +4,9 @@ import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsAlreadySaved;
 import com.url.cutter.exceptions.UrlSourceValueIsNotValid;
 import com.url.cutter.exceptions.UrlTimeStampIsNotValid;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface IUrlService {
 
     /**
@@ -32,9 +34,24 @@ public interface IUrlService {
     ShortUrl getShortUrl(ShortUrl url);
 
     /**
+     * @return last insert url ID
+     */
+    int getLastInsertEntityId();
+
+    /**
      * @param url: source url entity
      */
-    void saveUrl(ShortUrl url) throws RuntimeException;
+    void processingUrl(ShortUrl url);
+
+    /**
+     * @param url: source url entity
+     */
+    ShortUrl saveUrl(ShortUrl url) throws UrlIsAlreadySaved;
+
+    /**
+     * @param shortUrl: source url entity
+     */
+    void deleteById(ShortUrl shortUrl);
 
     /**
      * @param cutUrl: cut url value

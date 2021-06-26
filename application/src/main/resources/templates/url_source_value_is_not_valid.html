@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error</title>
+    <title>Cutur1 | Free Url Shortener</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
 </head>
@@ -12,10 +12,17 @@
         <span class="slash">/</span>CUT<span class="short">UR1</span>
     </h1>
 </div>
-<div>
-    <h1 class="mainDiv">
-        Error <span th:text="${statusCode}"></span>
-    </h1>
+<div class="main">
+    <div class="mainDiv">
+        <div>
+            <p>
+                That Url is not valid.
+            </p>
+        </div>
+        <div>
+            <a th:href="@{/}">Home</a>
+        </div>
+    </div>
 </div>
 <div class="footer">
 </div>
