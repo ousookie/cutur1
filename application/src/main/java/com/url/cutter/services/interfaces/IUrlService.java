@@ -2,6 +2,7 @@ package com.url.cutter.services.interfaces;
 
 import com.url.cutter.entities.ShortUrl;
 import com.url.cutter.exceptions.UrlIsAlreadySaved;
+import com.url.cutter.exceptions.UrlIsNotValid;
 import com.url.cutter.exceptions.UrlSourceValueIsNotValid;
 import com.url.cutter.exceptions.UrlTimeStampIsNotValid;
 import org.springframework.stereotype.Service;
@@ -41,12 +42,12 @@ public interface IUrlService {
     /**
      * @param url: source url entity
      */
-    void processingUrl(ShortUrl url);
+    void processingUrl(ShortUrl url) throws RuntimeException;
 
     /**
      * @param url: source url entity
      */
-    ShortUrl saveUrl(ShortUrl url) throws UrlIsAlreadySaved;
+    ShortUrl saveUrl(ShortUrl url);
 
     /**
      * @param shortUrl: source url entity
@@ -57,6 +58,6 @@ public interface IUrlService {
      * @param cutUrl: cut url value
      * @return redirect view
      */
-    String redirect(String cutUrl);
+    String redirect(String cutUrl) throws UrlIsNotValid;
 
 }
